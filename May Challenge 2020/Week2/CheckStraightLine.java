@@ -7,7 +7,6 @@ class Solution {
         
         for(int i = 2; i < coordinates.length; i++) {
             double m2 = slope(coordinates[i-1][0], coordinates[i-1][1], coordinates[i][0], coordinates[i][1]);
-            
             if(m2 != m1) {
                 return false;
             }
