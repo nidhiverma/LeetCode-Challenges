@@ -1,0 +1,37 @@
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        if(ransomNote.length() > magazine.length()) {
+            return false;
+        }
+        
+        HashMap<Character, Integer> lookup = new HashMap<>();
+        
+        for(int i = 0; i < magazine.length(); i++) {
+            char key = magazine.charAt(i);
+            if(!lookup.containsKey(key)) {
+                lookup.put(key, 1);
+            }
+            else {
+                int value = lookup.get(key) + 1;
+                lookup.put(key, value);
+            }
+        }
+        
+        for(int i = 0; i < ransomNote.length(); i++) {
+            char key = ransomNote.charAt(i);
+            if(!lookup.containsKey(key)) {
+                return false;
+            }
+            else {
+                int value = lookup.get(key) - 1;
+                if(value == 0) {
+                    lookup.remove(key);
+                }
+                else {
+                    lookup.put(key, value);
+                }
+            }
+        }
+        return true;
+    }
+}
