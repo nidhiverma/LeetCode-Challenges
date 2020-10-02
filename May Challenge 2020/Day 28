@@ -1,0 +1,10 @@
+class Solution {
+public:
+    vector<int> countBits(int num) {
+        vector<int> bits_count(num+1, 0);
+        for(int i=1; i<=num; i++)
+        bits_count[i]=bits_count[i>>1]+i%2;  //if odd then add 1 if even check only the bits of half the value of the number. It will be same
+        
+        return bits_count;
+    }
+};
