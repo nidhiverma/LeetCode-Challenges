@@ -1,3 +1,11 @@
+/*
+    Time Complexity: O(m+n)    
+        ----> m for storin all characters in map
+        ----> n is the length of string s, we are traversing the string processing every character in s
+        
+    Space Complexity: O(n)  ----> if len(s) == len(t) and t contains all unique characters
+*/
+
 class Solution {
     public String minWindow(String s, String t) {
         HashMap<Character, Integer> map = new HashMap();
