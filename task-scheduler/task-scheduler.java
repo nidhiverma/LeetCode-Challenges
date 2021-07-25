@@ -6,16 +6,16 @@ class Solution {
         
         for(char task: tasks) {
             freq[task - 'A']++;
-            maxFreq = Math.max(maxFreq, freq[task-'A']);
+            maxFreq = Math.max(freq[task-'A'], maxFreq);
         }
         
-        int tasksWithMaxFreq = 0;
-        for(int f : freq) {
-            if(f == maxFreq) {
-                tasksWithMaxFreq++;
-            }
-        }
+        Arrays.sort(freq);
+        int idleTime = (freq[25] - 1) * n;
         
-        return Math.max(tasks.length, (maxFreq-1) * (n+1) + tasksWithMaxFreq);
+        for(int i = 24; i >= 0 && idleTime > 0; i--) {
+            idleTime -= Math.min(freq[i], maxFreq-1);
+        }
+        idleTime = Math.max(0, idleTime);
+        return idleTime + tasks.length;
     }
 }
