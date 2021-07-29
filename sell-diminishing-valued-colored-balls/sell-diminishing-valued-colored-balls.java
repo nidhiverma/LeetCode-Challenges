@@ -12,7 +12,7 @@ class Solution {
             orders -= rounds * colors;
             res = (res + (cur * (cur + 1) - (cur - rounds) * (cur - rounds + 1)) / 2 * colors) % mod;
             if (cur - prev > rounds) {
-                res = (res + orders * (cur - rounds)) % mod;
+                res = (res + orders * (cur-rounds)) % mod;
                 break;
             }
         }
