@@ -56,6 +56,7 @@ class Solution {
     
     public int minimumCost(int n, int[][] connections) {
         if(connections.length == 0) return 0;
+        if(connections.length < n-1) return -1;
         
         Arrays.sort(connections, (a, b) -> a[2] - b[2]);
         
@@ -76,7 +77,6 @@ class Solution {
             // all cities connected
             if(uf.getSize(1) == n) break;
         }
-        System.out.println(Arrays.toString(uf.parent));
         if(uf.getSize(1) != n) return -1;
         return totalCost;
         
