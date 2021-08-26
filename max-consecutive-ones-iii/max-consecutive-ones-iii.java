@@ -1,23 +1,28 @@
 class Solution {
-    public int longestOnes(int[] nums, int k) {
-        int i = 0, j = 0, len = 0;
+    public int longestOnes(int[] A, int K) {
+        int globalSum = Integer.MIN_VALUE, localSum = 0, flipCount = K, windowStart = 0;
         
-        while(j < nums.length) {
-            if(nums[j] == 1) j++;
-            else if(nums[j] == 0) {
-                if(k == 0) {
-                    len = Math.max(len, j-i);
-                    while(nums[i] == 1) i++;
-                    i++;
-                }
+        for(int i = 0; i < A.length; i++) {
+            if(A[i] == 0) {
+                if(flipCount == 0) {
+                    // System.out.println(localSum);
+                    if(globalSum < localSum) {
+                        globalSum = localSum;
+                    } 
+                    while(A[windowStart++] == 1) {
+                        localSum--;
+                    }
+                } 
                 else {
-                    k--;
+                    localSum++; 
+                    flipCount--;
                 }
-                j++;
+            }
+            else {
+                localSum++;
             }
         }
-        
-        len = Math.max(len, j-i);
-        return len;
+        if(globalSum < localSum) globalSum = localSum;
+        return globalSum;
     }
 }
