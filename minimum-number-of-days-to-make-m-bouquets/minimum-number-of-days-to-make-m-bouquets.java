@@ -1,48 +1,48 @@
 class Solution {
     public int minDays(int[] bloomDay, int m, int k) {
-        if(m*k > bloomDay.length) return -1;
+        if(m*k > bloomDay.length) return -1;        // not enough flowers to make m bouquets
         
-        int lo = 1, hi = 1, ans = -1;
+        int lo = 1, hi = 0;
         
         for(int i = 0; i < bloomDay.length; i++) {
-            hi = Math.max(bloomDay[i], hi);
+            hi = Math.max(hi, bloomDay[i]);
         }
         
+        int days = -1;
         
         while(lo <= hi) {
-            int day = lo + (hi - lo + 1)/2;
+            int mid = lo + (hi - lo)/2;
             
-            if(checkPossiblilty(bloomDay, m, k, day)) {
-                hi = day-1;
-                ans = day;
+            if(isFeasible(bloomDay, mid, m, k)) {
+                days = mid;
+                hi = mid-1;
             }
             else {
-                lo = day+1;
+                lo = mid+1;
             }
         }
-        return ans;
+        return days;
     }
     
-    // method to check if it is possible to prepare m bouquets by day d
-    private boolean checkPossiblilty(int[] bloomDay, int m, int k, int d) {
-        int flowersPicked = 0;
+    private boolean isFeasible(int[] bloomDays, int day, int m, int k) {
+        int flowers = 0;
         
-        for(int i = 0; i < bloomDay.length; i++) {
-            if(bloomDay[i] <= d) {
-                flowersPicked++;
+        for(int i = 0; i < bloomDays.length; i++) {
+            if(bloomDays[i] <= day) {
+                flowers++;
+                
+                if(flowers == k) {
+                    m--;
+                    flowers = 0;
+                }
+                
+                if(m == 0) return true;
             }
             else {
-                flowersPicked = 0;
+                flowers = 0;
             }
-            
-            // one bouquet can be made
-            if(flowersPicked == k) {
-                m--;
-                flowersPicked = 0;
-            }
-            
-            if(m == 0) return true;
         }
+        
         return false;
     }
 }
